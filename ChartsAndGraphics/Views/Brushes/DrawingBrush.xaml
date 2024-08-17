@@ -1,0 +1,33 @@
+﻿<Window x:Class="ChartsAndGraphics.Views.Brushes.DrawingBrush"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChartsAndGraphics.Views.Brushes"
+        mc:Ignorable="d"
+        Title="DrawingBrush" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <DrawingBrush Viewport="0, 0, 100, 100" 
+                          ViewportUnits="Absolute"
+                          TileMode="Tile">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Brush="White">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry Rect="0,0,1,1" />
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing Geometry="M0,0 L1,0 1,0.05, 0,0.05Z" Brush="Black" />
+                            <GeometryDrawing Geometry="M0,0 L0,1 0.05,1, 0.05,0Z" Brush="Black" />
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+                <DrawingBrush.Transform>
+                    <TranslateTransform X="0.5" Y="0.5" />
+                </DrawingBrush.Transform>
+            </DrawingBrush>
+        </Grid.Background>
+    </Grid>
+</Window>

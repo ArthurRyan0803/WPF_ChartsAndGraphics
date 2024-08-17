@@ -1,0 +1,93 @@
+﻿<Window x:Class="ChartsAndGraphics.Views.Animations.SpinBallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChartsAndGraphics.Views.Animations"
+        xmlns:core="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="SpinBallWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <core:Double x:Key="spinRadius">100</core:Double>
+
+            <MatrixTransform x:Key="transform1"/>
+            <MatrixTransform x:Key="transform2"/>
+            <MatrixTransform x:Key="transform3"/>
+            <MatrixTransform x:Key="transform4"/>
+            <MatrixTransform x:Key="transform5"/>
+            <MatrixTransform x:Key="transform6"/>
+
+            <local:PolarTransformProxy x:Key="transformProxy1" Radius="{StaticResource spinRadius}" Angle="-90" Transform="{StaticResource transform1}" />
+            <local:PolarTransformProxy x:Key="transformProxy2" Radius="{StaticResource spinRadius}" Angle="-90" Transform="{StaticResource transform2}" />
+            <local:PolarTransformProxy x:Key="transformProxy3" Radius="{StaticResource spinRadius}" Angle="-90" Transform="{StaticResource transform3}" />
+
+            <core:Double x:Key="size">10</core:Double>
+            
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="textbox" Text="100"/>
+
+        <Ellipse Name="Ball1" Fill="Red" Width="{StaticResource size}" Height="{StaticResource size}" RenderTransform="{StaticResource transform1}">
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever" AutoReverse="False">
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy1}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="270" Duration="0:0:2" BeginTime="0:0:0">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy1}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="-90" Duration="0:0:0.3" BeginTime="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+
+        <Ellipse Name="Ball2" Fill="Red" Width="{StaticResource size}" Height="{StaticResource size}" RenderTransform="{StaticResource transform2}">
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever" AutoReverse="False">
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy2}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="270" Duration="0:0:2" BeginTime="0:0:0.1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy2}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="-90" Duration="0:0:0.2" BeginTime="0:0:2.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+
+        <Ellipse Name="Ball3" Fill="Red" Width="{StaticResource size}" Height="{StaticResource size}" RenderTransform="{StaticResource transform3}">
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever" AutoReverse="False">
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy3}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="270" Duration="0:0:2" BeginTime="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.Target="{StaticResource transformProxy3}" Storyboard.TargetProperty="(local:PolarTransformProxy.Angle)"
+                                             From="-90" To="-90" Duration="0:0:0.1" BeginTime="0:0:2.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
+
+        <!--<Ellipse Name="CopyBall" Stroke="Green" Width="{StaticResource size}" Height="{StaticResource size}" />-->
+    </Grid>
+</Window>
