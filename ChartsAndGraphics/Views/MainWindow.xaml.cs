@@ -19,6 +19,12 @@ namespace ChartsAndGraphics.Views
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += (_, __) =>
+            {
+                var old = this.SizeToContent;
+                SizeToContent = SizeToContent.WidthAndHeight;
+                SizeToContent = old;
+            };
         }
     }
 }

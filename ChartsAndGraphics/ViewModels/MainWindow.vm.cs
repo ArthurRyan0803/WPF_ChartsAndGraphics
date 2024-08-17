@@ -50,7 +50,7 @@ namespace ChartsAndGraphics.ViewModels
 
         private void OpenSpinBallWindow()
         {
-            var window = _container.Resolve<SpinBallWindow>();
+            var window = _container.Resolve<SpinBallsWindow>();
             window.Show();
         }
     }

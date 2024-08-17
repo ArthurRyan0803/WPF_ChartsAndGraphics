@@ -101,9 +101,9 @@ namespace ChartsAndGraphics.Views.Animations
     /// <summary>
     /// SpinBallWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SpinBallWindow : Window
+    public partial class SpinBallsWindow : Window
     {
-        public SpinBallWindow()
+        public SpinBallsWindow()
         {
             InitializeComponent();
         }

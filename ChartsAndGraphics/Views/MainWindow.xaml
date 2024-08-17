@@ -27,28 +27,29 @@
 
     <StackPanel Orientation="Vertical">
         <GroupBox Header="Transforms" Style="{StaticResource GroupBoxStyle}">
-            <WrapPanel Grid.Row="0" Orientation="Horizontal">
-                <Button HorizontalContentAlignment="Center"
-                        Command="{Binding OpenMatrixTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
-                    <TextBlock Text="Matrix&#x0a;Transform" TextAlignment="Center"/>
-                </Button>
-                <Button HorizontalContentAlignment="Center"
-                        Command="{Binding OpenScaleTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
-                    <TextBlock Text="Scale&#x0a;Transform" TextAlignment="Center"/>
-                </Button>
-                <Button HorizontalContentAlignment="Center"
-                        Command="{Binding OpenRotateTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
-                    <TextBlock Text="Rotate&#x0a;Transform" TextAlignment="Center"/>
-                </Button>
-            </WrapPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+                <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenMatrixTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Matrix&#x0a;Transform" TextAlignment="Center"/>
+                    </Button>
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenScaleTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Scale&#x0a;Transform" TextAlignment="Center"/>
+                    </Button>
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenRotateTransformDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Rotate&#x0a;Transform" TextAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
         </GroupBox>
 
         <GroupBox Header="Animation" Style="{StaticResource GroupBoxStyle}">
-            <WrapPanel>
-                <Button HorizontalContentAlignment="Center" Command="{Binding OpenSpinBallDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
-                    <TextBlock Text="Spin Ball" TextAlignment="Center"/>
-                </Button>
-            </WrapPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel>
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenSpinBallDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Spin Balls" TextAlignment="Center"/>
+                    </Button>
+                </WrapPanel>
+            </ScrollViewer>
         </GroupBox>
     </StackPanel>
     
