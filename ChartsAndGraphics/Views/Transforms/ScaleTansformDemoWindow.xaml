@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ChartsAndGraphics.ViewModels.Transforms"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignData {x:Type vm:ScaleTransformDemoWindowViewModel}}"
+        d:DataContext="{d:DesignInstance {x:Type vm:ScaleTransformDemoWindowViewModel}}"
         Title="ScaleTansformDemoWindow" 
         Height="1000" Width="1000" WindowStartupLocation="CenterScreen"
         >
@@ -53,7 +53,7 @@
 
         <Grid Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3"
               Background="{StaticResource BrushStyle.Grid}">
-            <Rectangle Fill="Green" 
+            <Rectangle
                    Width="{Binding ElementName=RectWidth, Path=Text}" 
                    Height="{Binding ElementName=RectHeight, Path=Text}" 
                    Name="Rectangle" Panel.ZIndex="0">
@@ -64,6 +64,12 @@
                     ScaleX="{Binding Path=Text, ElementName=ScaleXTextBox}"
                     ScaleY="{Binding Path=Text, ElementName=ScaleYTextBox}"/>
                 </Rectangle.RenderTransform>
+                <Rectangle.Fill>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Green" Offset="0.0"/>
+                        <GradientStop Color="Blue" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
             </Rectangle>
 
             <Border
