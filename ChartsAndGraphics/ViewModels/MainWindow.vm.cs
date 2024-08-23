@@ -1,4 +1,5 @@
 ﻿using ChartsAndGraphics.Views.Animations;
+using ChartsAndGraphics.Views.Charts;
 using ChartsAndGraphics.Views.Transforms;
 using Prism.Commands;
 using Prism.Ioc;
@@ -19,7 +20,10 @@ namespace ChartsAndGraphics.ViewModels
         public ICommand OpenMatrixTransformDemoWindowCommand { get; private set; }
         public ICommand OpenRotateTransformDemoWindowCommand { get; private set; }
         public ICommand OpenSpinBallDemoWindowCommand { get; private set; }
-        
+
+        public ICommand OpenCurveChartWindowCommand { get; private set; }
+        //public ICommand OpenDataCollectionChartWindowCommand { get; private set; }
+
         public MainWindowViewModel(IContainerProvider container)
         {
             _container = container;
@@ -28,6 +32,8 @@ namespace ChartsAndGraphics.ViewModels
             OpenMatrixTransformDemoWindowCommand = new DelegateCommand(OpenMatrixTransformDemoWindow);
             OpenRotateTransformDemoWindowCommand = new DelegateCommand(OpenRotateTransformDemoWindow);
             OpenSpinBallDemoWindowCommand = new DelegateCommand(OpenSpinBallWindow);
+            OpenCurveChartWindowCommand = new DelegateCommand(OpenCurveChartWindow);
+            //OpenDataCollectionChartWindowCommand = new DelegateCommand(OpenDataCollectionChartWindow);
         }
 
         private void OpenScaleTransformDemoWindow()
@@ -53,5 +59,17 @@ namespace ChartsAndGraphics.ViewModels
             var window = _container.Resolve<SpinBallsWindow>();
             window.Show();
         }
+
+        private void OpenCurveChartWindow()
+        {
+            var window = _container.Resolve<CurveChartWindow>();
+            window.Show();
+        }
+
+        //private void OpenDataCollectionChartWindow()
+        //{
+        //    var window = _container.Resolve<DataCollectionChartWindow>();
+        //    window.Show();
+        //}
     }
 }

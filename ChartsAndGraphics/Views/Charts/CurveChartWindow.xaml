@@ -1,0 +1,16 @@
+﻿<Window x:Class="ChartsAndGraphics.Views.Charts.CurveChartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChartsAndGraphics.Views.Charts"
+        mc:Ignorable="d"
+        Title="CurveChartWindow" Height="573" Width="902">
+    <Grid Name="RootGrid">
+        <local:CurvesChart MinX="-10" MaxX="50" MinY="-10" MaxY="50">
+            <local:CurvesChart.CoordinateFrame>
+                <local:SimpleCoordinateFrame/>
+            </local:CurvesChart.CoordinateFrame>
+        </local:CurvesChart>
+    </Grid>
+</Window>

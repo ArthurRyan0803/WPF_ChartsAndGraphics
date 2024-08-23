@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
         d:DataContext="{d:DesignInstance Type={x:Type vm:MainWindowViewModel}}"
-        Title="MainWindow" Height="321" Width="431"
+        Title="MainWindow" Height="450" Width="514"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
@@ -48,11 +48,25 @@
                     <Button HorizontalContentAlignment="Center" Command="{Binding OpenSpinBallDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
                         <TextBlock Text="Spin Balls" TextAlignment="Center"/>
                     </Button>
+
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenSpinBallDemoWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Spin Balls" TextAlignment="Center"/>
+                    </Button>
+                </WrapPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox Header="Chart" Style="{StaticResource GroupBoxStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel>
+                    <Button HorizontalContentAlignment="Center" Command="{Binding OpenCurveChartWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Curve Chart" TextAlignment="Center"/>
+                    </Button>
+                    <!--<Button HorizontalContentAlignment="Center" Command="{Binding OpenDataCollectionChartWindowCommand}" Style="{StaticResource ButtonStyle}">
+                        <TextBlock Text="Data Collection&#x0a;Chart" TextAlignment="Center"/>
+                    </Button>-->
                 </WrapPanel>
             </ScrollViewer>
         </GroupBox>
     </StackPanel>
-    
-    
-
 </Window>
