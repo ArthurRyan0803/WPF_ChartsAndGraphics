@@ -4,30 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChartsAndGraphics.Views.Charts"
-             mc:Ignorable="d" d:Background="White">
+             mc:Ignorable="d" d:Background="White" d:Height="500" d:Width="500">
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{Binding LabelFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"/>
+            <Setter Property="FontSize" Value="{Binding LabelFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="15"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Title" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Text="{Binding Path=Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"
+                   FontFamily="{Binding Path=TitleFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"
+                   FontSize="{Binding Path=TitleFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"/>
 
-        <!--<TextBlock Text="Y" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Grid.Row="0" Grid.RowSpan="3" Grid.Column="0">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
-
-        <TextBlock Text="X" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>-->
-
-        <Canvas x:Name="canvas" Grid.Row="1" Background="Transparent"/>
-        <Path Stroke="Black" StrokeThickness="1" Grid.Row="1"
-              Width="{Binding ElementName=canvas, Path=ActualWidth}"
-              Height="{Binding ElementName=canvas, Path=ActualHeight}"
-              Data="{Binding Path=CoordinateFrame.FrameGeometry, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurvesChart}}}"/>
-
+        <ContentPresenter Grid.Row="1" Panel.ZIndex="0"
+                          Content="{Binding CoordinateFrame, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CurvesChart}}"/>
+        <Canvas x:Name="canvas" Grid.Row="1" Background="Transparent" Panel.ZIndex="1" />
     </Grid>
 </UserControl>

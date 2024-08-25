@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="ChartsAndGraphics.Views.Charts.BasicCoordinateFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChartsAndGraphics.Views.Charts"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Name="thisControl">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="FontSize" Value="{Binding LabelFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:BasicCoordinateFrame}}"/>
+            <Setter Property="FontFamily" Value="{Binding LabelFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:BasicCoordinateFrame}}"/>
+        </Style>
+    </UserControl.Resources>
+    <Canvas>
+        
+        <TextBlock x:Name="xLabel" 
+                   Text="{Binding XAxisLabel, ElementName=thisControl}"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock x:Name="yLabel" Text="{Binding YAxisLabel, ElementName=thisControl}"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock x:Name="originLabel"
+                   Text="{Binding OriginLabel, ElementName=thisControl}"
+                   Style="{StaticResource TextBlockStyle}"/>
+        
+        <Path x:Name="coordinateFramePath"
+              Data="{Binding AxesGeometry, ElementName=thisControl}"
+              Width="{Binding ActualWidth, ElementName=thisControl}" 
+              Height="{Binding ActualHeight, ElementName=thisControl}"
+              Stroke="{Binding Stroke, ElementName=thisControl}"
+              StrokeThickness="{Binding StrokeThickness, ElementName=thisControl}"/>
+    </Canvas>
+</UserControl>

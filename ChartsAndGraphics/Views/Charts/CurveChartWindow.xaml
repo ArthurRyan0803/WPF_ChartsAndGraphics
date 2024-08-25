@@ -5,12 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChartsAndGraphics.Views.Charts"
         mc:Ignorable="d"
-        Title="CurveChartWindow" Height="573" Width="902">
+        Title="CurveChartWindow" Height="544" Width="633">
     <Grid Name="RootGrid">
-        <local:CurvesChart MinX="-10" MaxX="50" MinY="-10" MaxY="50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <local:CurvesChart Grid.Column="0" 
+                           Title="{Binding Text, Source={x:Reference ChartTitleTextBox}}" 
+                           TitleFontSize="{Binding Text, Source={x:Reference ChartTitleFontSizeTextBox}}" 
+                           MinX="-10" MaxX="50" MinY="-10" MaxY="50" Margin="10">
             <local:CurvesChart.CoordinateFrame>
-                <local:SimpleCoordinateFrame/>
+                <local:BasicCoordinateFrame Stroke="Black"
+                                            StrokeThickness="{Binding Text, Source={x:Reference AxesStrokeThicknessTextBox}}"
+                                            LabelFontSize="{Binding Text, Source={x:Reference LabelFontSizeTextBox}}"
+                                            AxisArrowWidth="{Binding Text, Source={x:Reference AxesArrowWidthTextBox}}"
+                                            AxisArrowHeight="{Binding Text, Source={x:Reference AxesArrowHeightTextBox}}"/>
             </local:CurvesChart.CoordinateFrame>
         </local:CurvesChart>
+
+        <GroupBox Grid.Column="1" Margin="0,10, 10, 0" Header="Display Options">
+            <Grid Margin="0, 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Label Font Size: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="0" TextWrapping="NoWrap"  Width="50" VerticalAlignment="Top" 
+                         HorizontalAlignment="Left" x:Name="LabelFontSizeTextBox" Text="20"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Axes Arrow Width: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="2" TextWrapping="NoWrap"  Width="50" VerticalAlignment="Top" 
+                         HorizontalAlignment="Left" x:Name="AxesArrowWidthTextBox" Text="13"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Axes Arrow Height: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="4" TextWrapping="NoWrap"  Width="50" VerticalAlignment="Top" 
+                         HorizontalAlignment="Left" x:Name="AxesArrowHeightTextBox" Text="13"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Axes Stroke Thickness: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="6" TextWrapping="NoWrap"  Width="50" VerticalAlignment="Top" 
+                         HorizontalAlignment="Left" x:Name="AxesStrokeThicknessTextBox" Text="3"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Chart Title: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="8" TextWrapping="NoWrap"  Width="80" VerticalAlignment="Top" x:Name="ChartTitleTextBox" Text="Fxxk CPC"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="10" Text="Chart Title Font Size: " HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="10" TextWrapping="NoWrap"  Width="50" VerticalAlignment="Top" 
+                         HorizontalAlignment="Left" x:Name="ChartTitleFontSizeTextBox" Text="20"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>

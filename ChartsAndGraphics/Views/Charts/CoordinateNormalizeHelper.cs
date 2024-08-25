@@ -4,21 +4,21 @@ namespace ChartsAndGraphics.Views.Charts
 {
     class CoordinateNormalizeHelper
     {
-        private IChartCanvas _canvas;
+        private ICurvesCanvas _canvas;
 
-        public CoordinateNormalizeHelper(IChartCanvas canvas)
+        public CoordinateNormalizeHelper(ICurvesCanvas canvas)
         {
             _canvas = canvas;
         }
 
         public double NormalizeX(double x)
         {
-            return (x - _canvas.MinX) / (_canvas.MaxX - _canvas.MinX) * _canvas.ViewportWidth;
+            return (x - _canvas.MinX) / (_canvas.MaxX - _canvas.MinX) * _canvas.ViewPortWidth;
         }
 
         public double NormalizeY(double y)
         {
-            return _canvas.ViewpotHeight - (y - _canvas.MinY) / (_canvas.MaxY - _canvas.MinY) * _canvas.ViewpotHeight;
+            return _canvas.ViewPortHeight - (y - _canvas.MinY) / (_canvas.MaxY - _canvas.MinY) * _canvas.ViewPortHeight;
         }
 
         public Point NormalizePoint(Point point)

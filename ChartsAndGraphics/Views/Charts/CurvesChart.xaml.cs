@@ -1,66 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChartsAndGraphics.Views.Charts
 {
     /// <summary>
     /// CurvesChart.xaml 的交互逻辑
     /// </summary>
-    public partial class CurvesChart : UserControl, IChartCanvas
+    public partial class CurvesChart : UserControl, ICurvesCanvas
     {
         private static readonly double DEFAULT_MIN = -5;
         private static readonly double DEFAULT_MAX = 15;
+        private static readonly string DEFAULT_TITLE = "Curve Chart";
+
+        private static readonly Type THIS_TYPE = typeof(CurvesChart);
 
         public static readonly DependencyProperty MaxXProperty =
-            DependencyProperty.Register(nameof(MaxX), typeof(double), typeof(CurvesChart),
-                new FrameworkPropertyMetadata(DEFAULT_MAX, FrameworkPropertyMetadataOptions.AffectsRender, OnGraphicPropertyChanged)
+            DependencyProperty.Register(nameof(MaxX), typeof(double), THIS_TYPE,
+                new FrameworkPropertyMetadata(DEFAULT_MAX, FrameworkPropertyMetadataOptions.AffectsRender, OnRangePropertyChanged)
             );
 
         public static readonly DependencyProperty MaxYProperty =
-            DependencyProperty.Register(nameof(MaxY), typeof(double), typeof(CurvesChart),
-                new FrameworkPropertyMetadata(DEFAULT_MAX, FrameworkPropertyMetadataOptions.AffectsRender, OnGraphicPropertyChanged)
+            DependencyProperty.Register(nameof(MaxY), typeof(double), THIS_TYPE,
+                new FrameworkPropertyMetadata(DEFAULT_MAX, FrameworkPropertyMetadataOptions.AffectsRender, OnRangePropertyChanged)
             );
 
         public static readonly DependencyProperty MinXProperty =
-            DependencyProperty.Register(nameof(MinX), typeof(double), typeof(CurvesChart),
-                new FrameworkPropertyMetadata(DEFAULT_MIN, FrameworkPropertyMetadataOptions.AffectsRender, OnGraphicPropertyChanged)
+            DependencyProperty.Register(nameof(MinX), typeof(double), THIS_TYPE,
+                new FrameworkPropertyMetadata(DEFAULT_MIN, FrameworkPropertyMetadataOptions.AffectsRender, OnRangePropertyChanged)
             );
 
         public static readonly DependencyProperty MinYProperty =
-            DependencyProperty.Register(nameof(MinY), typeof(double), typeof(CurvesChart),
-                new FrameworkPropertyMetadata(DEFAULT_MIN, FrameworkPropertyMetadataOptions.AffectsRender, OnGraphicPropertyChanged)
+            DependencyProperty.Register(nameof(MinY), typeof(double), THIS_TYPE,
+                new FrameworkPropertyMetadata(DEFAULT_MIN, FrameworkPropertyMetadataOptions.AffectsRender, OnRangePropertyChanged)
             );
 
         public static readonly DependencyProperty CoordinateFrameProperty =
-            DependencyProperty.Register(nameof(CoordinateFrame), typeof(ICoordinateFrame), typeof(CurvesChart),
-                new FrameworkPropertyMetadata(new EmptyCoordinateFrame(), FrameworkPropertyMetadataOptions.AffectsRender, OnGraphicPropertyChanged)
+            DependencyProperty.Register(nameof(CoordinateFrame), typeof(FrameworkElement), THIS_TYPE,
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender)
             );
 
-        private static void OnGraphicPropertyChanged(object obj, DependencyPropertyChangedEventArgs e)
-        {
-            //var @this = (ChartCanvasBase)obj;
-            //foreach(var c in @this.Children)
-            //{
-            //    if (c is IAwareParentUiPropertyChangeded i)
-            //        i.ParentUiPropertyChanged(e.Property.Name);
-            //}
-        }
+        public static readonly DependencyProperty TitleFontFamilyProperty =
+            DependencyProperty.Register(nameof(TitleFontFamily), typeof(FontFamily), THIS_TYPE,
+                new FrameworkPropertyMetadata(new FontFamily("Microsoft Yahei UI"), FrameworkPropertyMetadataOptions.AffectsRender)
+            );
 
-        private static void OnCoordinateFrameChanged(object obj, DependencyPropertyChangedEventArgs e)
-        {
+        public static readonly DependencyProperty TitleFontSizeProperty =
+            DependencyProperty.Register(nameof(TitleFontSize), typeof(double), THIS_TYPE,
+                new FrameworkPropertyMetadata(10.0, FrameworkPropertyMetadataOptions.AffectsRender)
+            );
 
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register(nameof(Title), typeof(string), THIS_TYPE,
+                new FrameworkPropertyMetadata(DEFAULT_TITLE, FrameworkPropertyMetadataOptions.AffectsRender)
+            );
+
+        public event RoutedEventHandler? RangeRelatedPropertyChanged;
+        public event RoutedEventHandler? ViewPortSizeChanged;
+
+        private static void OnRangePropertyChanged(object obj, DependencyPropertyChangedEventArgs e)
+        {
+            var @this = (CurvesChart)obj;
+            @this.RangeRelatedPropertyChanged?.Invoke(@this, new RoutedEventArgs());
         }
 
         public double MaxX
@@ -87,28 +88,55 @@ namespace ChartsAndGraphics.Views.Charts
             set => SetValue(MinYProperty, value);
         }
 
-        public ICoordinateFrame CoordinateFrame
+        public FrameworkElement CoordinateFrame
         {
-            get => (ICoordinateFrame)GetValue(CoordinateFrameProperty);
+            get => (FrameworkElement)GetValue(CoordinateFrameProperty);
             set => SetValue(CoordinateFrameProperty, value);
         }
 
-        public double ViewportWidth => ActualWidth;
+        public FontFamily TitleFontFamily
+        {
+            get => (FontFamily)GetValue(TitleFontFamilyProperty);
+            set => SetValue(TitleFontFamilyProperty, value);
+        }
 
-        public double ViewpotHeight => ActualHeight;
+        public double TitleFontSize
+        {
+            get => (double)GetValue(TitleFontSizeProperty);
+            set => SetValue(TitleFontSizeProperty, value);
+        }
+
+        public string Title
+        {
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
+        }
+
+        public double ViewPortWidth => ActualWidth;
+
+        public double ViewPortHeight => ActualHeight;
 
         public CurvesChart()
         {
             InitializeComponent();
-            Loaded += (_, __) => CoordinateFrame.Refresh(this);
-            SizeChanged += (_, __) => CoordinateFrame.Refresh(this);
+
+            Loaded += CurvesChart_Loaded;
+            Unloaded += CurvesChart_Unloaded;
         }
 
-        private class EmptyCoordinateFrame : ICoordinateFrame
+        private void CurvesChart_Unloaded(object sender, RoutedEventArgs e)
         {
-            public Geometry FrameGeometry => new LineGeometry();
+            SizeChanged -= CurvesChart_SizeChanged;
+        }
 
-            public void Refresh(IChartCanvas canvas) { }
+        private void CurvesChart_Loaded(object sender, RoutedEventArgs e)
+        {
+            SizeChanged += CurvesChart_SizeChanged;
+        }
+
+        private void CurvesChart_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ViewPortSizeChanged?.Invoke(this, new RoutedEventArgs());
         }
     }
 }
